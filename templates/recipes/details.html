@@ -1,0 +1,71 @@
+{% extends "shared/site.html" %}
+{% load static %}
+{% block site_content %}
+
+    <div class="container">
+        <h1>Recipe Details</h1>
+        <div class="items-container">
+            <div class="item">
+                <h2>{{ recipe.title }}</h2>
+                <h4 class="text-center"> a recipe by: <a href="{% url "user profile" recipe.user.user_id %}">
+                    <u> {{ recipe.user.user.username }}</u></a></h4>
+                <img class="detail-img" src="{{ recipe.image.url }}" alt="recipe-image">
+                <div class="time">
+                    <img src="/static/images/clock.png">
+                    <p>{{ recipe.time }}</p>
+                </div>
+                <h5>Ingredients:</h5>
+                <ul>
+                    {% for ingredient in recipe.ingredients_list %}
+                        <li> {{ ingredient }}</li>
+                    {% endfor %}
+                </ul>
+                <h5>Description:</h5>
+                <div class="recipe-info-full">
+                    {{ recipe.description }}
+
+                </div>
+                <h5><br>Uploaded on:</h5> {{ recipe.timestamp }}
+                {% if own_recipe or admin %}
+                    <div class="buttons-container">
+                    <a class="button edit" href="{% url "edit recipe" recipe.id %}">Edit</a>
+                    <a class="button delete" href="{% url "delete recipe" recipe.id %}">Delete</a>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% if recipe.comment_set.exists %}
+            <h2> All comments: </h2>
+            <div class="items-container">
+                {% for comment in recipe.comment_set.all %}
+                    <div class="item">
+                        <a href="{% url 'user profile' comment.user_id %}"><b>{{ comment.user.user.username }}</b></a>
+                        on {{ comment.timestamp }}
+                        <h5><em>{{ comment.text }}</em></h5>
+                        {% if admin or current_user == comment.user.user.username %}
+                            <div class="buttons-container">
+                                <a class="button edit" href="{% url "edit comment" comment.pk %}">Edit</a>
+                                <a class="button delete" href="{% url "delete comment" comment.pk %}">Delete</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <h2>There are no comments for this recipe. </h2>
+        {% endif %}
+        {% if not own_recipe or admin %}
+            <div class="items-container">
+                <div class="item">
+                    <form method="post" action="{% url 'comment recipe' recipe.pk %}">
+                        <label for="{{ form.text.id_for_label }}">Add a comment:</label>
+                        {{ form.text }}
+                        {% csrf_token %}
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+
+{% endblock %}

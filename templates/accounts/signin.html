@@ -1,0 +1,25 @@
+{% extends "shared/site.html" %}
+{% block site_title %}Sign in{% endblock %}
+
+{% block site_content %}
+
+    <div class="container">
+
+        <h1>Sign In</h1>
+        <div class="items-container">
+            <div class="item">
+
+                <form action="{% url 'signin user' %}" method="post">
+
+                    {{ form }}
+                    {% csrf_token %}
+                    <button class="btn btn-success">Sign In</button>
+                    or <a href="{% url "signup user" %}">Sign Up</a>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

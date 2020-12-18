@@ -1,0 +1,1 @@
+web: gunicorn petko-cookbook.wsgi --log-file -

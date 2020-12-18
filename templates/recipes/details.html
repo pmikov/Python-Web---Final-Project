@@ -55,17 +55,29 @@
         {% else %}
             <h2>There are no comments for this recipe. </h2>
         {% endif %}
-        {% if not own_recipe or admin %}
-            <div class="items-container">
-                <div class="item">
-                    <form method="post" action="{% url 'comment recipe' recipe.pk %}">
-                        <label for="{{ form.text.id_for_label }}">Add a comment:</label>
-                        {{ form.text }}
-                        {% csrf_token %}
-                        <input type="submit" value="Submit">
-                    </form>
+        {% if user.is_authenticated %}
+            {% if not own_recipe or admin %}
+                <div class="items-container">
+                    <div class="item">
+                        <form method="post" action="{% url 'comment recipe' recipe.pk %}">
+                            <label for="{{ form.text.id_for_label }}">Add a comment:</label>
+                            {{ form.text }}
+                            {% csrf_token %}
+                            <input type="submit" value="Submit">
+                        </form>
+                    </div>
                 </div>
+            {% endif %}{% else %}
+            <div style="text-align: center">
+            <a href={% url "signin user" %}>
+            <button class="btn btn-lg btn-primary btn-success" type="submit">Sign In</button></a> now to comment
+            or
+            <a href={% url "signup user" %}>
+                <button class="btn btn-primary" type="submit">Sign Up</button>
+            </a>
+            if you are new to our website
             </div>
+            <p></p>
         {% endif %}
 
 {% endblock %}

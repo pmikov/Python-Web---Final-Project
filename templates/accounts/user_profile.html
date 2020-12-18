@@ -31,25 +31,27 @@
     {% if recipes %}
         <div class="container">
             <h2 class='text-center'>Added Recipes:</h2>
-            {% for recipe in recipes %}
-                <div class="items-container">
-                    <div class="item">
-                        <h5 class="text-center">{{ recipe.title }}</h5>
-                        <img class="detail-img" src="{{ recipe.image.url }}" alt="recipe-image">
-                        <div class="recipe-info">
-                            {{ recipe.description }}
-                        </div>
-                        <div class="buttons-container">
-                            <a class="button detail" href="{% url "details recipe" recipe.id %}">Details</a>
-                            {% if own_profile  or admin %}
-                                <a class="button edit" href="{% url "edit recipe" recipe.id %}">Edit</a>
-                                <a class="button delete" href="{% url "delete recipe" recipe.id %}">Delete</a>
-                            {% endif %}
+            <div class="row">
+                {% for recipe in recipes %}
+                    <div class="items-container">
+                        <div class="item">
+                            <h5 class="text-center">{{ recipe.title }}</h5>
+                            <img class="detail-img" src="{{ recipe.image.url }}" alt="recipe-image">
+                            <div class="recipe-info">
+                                {{ recipe.description }}
+                            </div>
+                            <div class="buttons-container">
+                                <a class="button detail" href="{% url "details recipe" recipe.id %}">Details</a>
+                                {% if own_profile  or admin %}
+                                    <a class="button edit" href="{% url "edit recipe" recipe.id %}">Edit</a>
+                                    <a class="button delete" href="{% url "delete recipe" recipe.id %}">Delete</a>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                </div>
-                </div>
-            {% endfor %}
+                    </div>
+                    </div>
+                {% endfor %}
     {% else %}
         <div class="text-center">
             <h2>You have no recipes</h2>

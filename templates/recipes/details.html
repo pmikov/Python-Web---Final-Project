@@ -28,10 +28,11 @@
                 <h5><br>Uploaded on:</h5> {{ recipe.timestamp }}
                 {% if own_recipe or admin %}
                     <div class="buttons-container">
-                    <a class="button edit" href="{% url "edit recipe" recipe.id %}">Edit</a>
-                    <a class="button delete" href="{% url "delete recipe" recipe.id %}">Delete</a>
+                        <a class="button edit" href="{% url "edit recipe" recipe.id %}">Edit</a>
+                        <a class="button delete" href="{% url "delete recipe" recipe.id %}">Delete</a>
+                    </div>
                 {% endif %}
-                </div>
+
             </div>
         </div>
 
@@ -69,15 +70,16 @@
                 </div>
             {% endif %}{% else %}
             <div style="text-align: center">
-            <a href={% url "signin user" %}>
-            <button class="btn btn-lg btn-primary btn-success" type="submit">Sign In</button></a> now to comment
-            or
-            <a href={% url "signup user" %}>
-                <button class="btn btn-primary" type="submit">Sign Up</button>
-            </a>
-            if you are new to our website
+                <a href={% url "signin user" %}>
+                    <button class="btn btn-lg btn-primary btn-success" type="submit">Sign In</button>
+                </a> now to comment
+                or
+                <a href={% url "signup user" %}>
+                    <button class="btn btn-primary" type="submit">Sign Up</button>
+                </a>
+                if you are new to our website
             </div>
             <p></p>
         {% endif %}
-</div>
+    </div>
 {% endblock %}

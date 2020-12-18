@@ -4,11 +4,11 @@ from django.db import models
 
 # Create your models here.
 from accounts.models import UserProfile
-
+from cloudinary import models as cloudinary_models
 
 class Recipes(models.Model):
     title = models.CharField(max_length=30)
-    image = models.ImageField(upload_to="pics")
+    image = cloudinary_models.CloudinaryField("image")
     description = models.TextField()
     ingredients = models.CharField (max_length= 250)
     time = models.IntegerField()

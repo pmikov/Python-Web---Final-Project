@@ -15,6 +15,7 @@ from pathlib import Path
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import cloudinary
 import django_heroku
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,21 +28,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = ')&e7zk@8!t!wa7n1(vy49)(o8i^xptz0ufaafm=qjwk96f6idj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
+DEBUG = os.environ.get('DEBUG', None)
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(" ")
 
 # Application definition
 
 INSTALLED_APPS = [
+    'recipes',
+    'accounts',
+    'cloudinary',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'recipes',
-    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -144,3 +146,12 @@ prod_db  =  dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
 
 django_heroku.settings(locals())
+
+cloudinary.config(
+  cloud_name = "hxoxw6sfb",
+  api_key = "994263745741255",
+  api_secret = "UrtXtQ4EmV2ylo03vUXGwvOIEJg"
+)
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+

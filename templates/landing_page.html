@@ -7,7 +7,7 @@
     <h2>Share & Comment your favorite family dishes!</h2>
     <p></p>
     {% if not user.is_authenticated %}
-    <h2>Do you have an account? <h2>
+    <h2>Do you have an account? </h2>
     <a href={% url "signin user" %}>
     <button class="btn btn-lg btn-primary btn-success" type="submit">Sign In</button></a>
     <p> or </p>

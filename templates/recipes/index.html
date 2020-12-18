@@ -11,7 +11,7 @@
 
                 <div class="item">
                     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-                    <h2>{{ recipe.title }}</h2>
+                    <h2><a href = "{% url "details recipe" recipe.id %}"> {{ recipe.title }}</a></h2>
                     <h4 class = "text-center">a recipe by: <a href = "{% url "user profile" recipe.user.user_id %}"> <u> {{ recipe.user.user.username }}</u></a></h4>
                     <img class="detail-img" src="{{ recipe.image.url }}" alt="recipe-image">
                     <div class="recipe-info">

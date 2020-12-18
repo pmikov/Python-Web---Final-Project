@@ -1,1 +1,1 @@
-web: gunicorn petkocookbook.wsgi --log-file -
+web: gunicorn final_web_project.wsgi --log-file -

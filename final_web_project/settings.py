@@ -27,7 +27,11 @@ SECRET_KEY = ')&e7zk@8!t!wa7n1(vy49)(o8i^xptz0ufaafm=qjwk96f6idj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'petko-cookbook.herokuapp.com',
+]
 
 
 # Application definition

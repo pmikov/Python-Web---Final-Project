@@ -15,6 +15,8 @@ from pathlib import Path
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import django_heroku
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -25,14 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = ')&e7zk@8!t!wa7n1(vy49)(o8i^xptz0ufaafm=qjwk96f6idj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", None)
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    'petkocookbook.herokuapp.com',
-]
-
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 # Application definition
 
@@ -146,3 +143,4 @@ import dj_database_url
 prod_db  =  dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
 
+django_heroku.settings(locals())

@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = ')&e7zk@8!t!wa7n1(vy49)(o8i^xptz0ufaafm=qjwk96f6idj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", None)
+DEBUG = os.environ.get('DEBUG')
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(" ")
 
@@ -82,11 +82,11 @@ WSGI_APPLICATION = 'final_web_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("DB_NAME"),
-        'USER': os.environ.get("DB_USER"),
-        'PASSWORD':os.environ.get("DB_PASSWORD"),
-        'HOST': os.environ.get("DB_HOST"),
-        'PORT': os.environ.get("DB_PORT"),
+        'NAME': os.environ.get('DB_NAME', 'final_web_project'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'petko1984'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
@@ -131,13 +131,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT =os.path.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = join(BASE_DIR, "media")
 
 import dj_database_url
 prod_db  =  dj_database_url.config(conn_max_age=500)

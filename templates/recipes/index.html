@@ -8,7 +8,6 @@
         {% endif %}
         {% for recipe in recipes %}
             <div class="items-container">
-
                 <div class="item">
                     <link rel="stylesheet" href="{% static 'css/style.css' %}">
                     <h2><a href = "{% url "details recipe" recipe.id %}"> {{ recipe.title }}</a></h2>
@@ -21,7 +20,6 @@
                         <a class="button detail" href="{% url "details recipe" recipe.id %}">Details</a>
                     </div>
                 </div>
-
             </div>
         {% endfor %}
     </div>

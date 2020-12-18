@@ -1,59 +1,60 @@
 {% extends 'shared/site.html' %}
 {% load static %}
 {% block site_content %}
-    <div class="text-center">
-        {% if own_profile %}
-            <h1>Hello, {{ profile_user.username }}!</h1>
-            <h2>This is your profile</h2>
+    <div class="container">
+        <div class="text-center">
+            {% if own_profile %}
+                <h1>Hello, {{ profile_user.username }}!</h1>
+                <h2>This is your profile</h2>
+            {% else %}
+                <h2>This is {{ profile_user.username }} profile</h2>
+            {% endif %}
+            {% if object.profile_picture %}
+                <img class="rounded-circle mb-3" src="{{ object.profile_picture.url }}" alt="Generic placeholder image"
+                     width="150"
+                     height="150">
+            {% else %}
+                <img class="rounded-circle mb-3" src="https://afribary.com/authors/anonymous-user/photo"
+                     alt="Generic placeholder image" width="140"
+                     height="140">
+            {% endif %}
+            {% if own_profile  or admin %}
+                <div class="w-25 m-auto">
+                    <form action="{% url 'current user profile' %}" method="post" enctype="multipart/form-data">
+                        {{ form }}
+                        {% csrf_token %}
+                        <input type="submit" value="Upload">
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+        <hr>
+        {% if recipes %}
+            <h2 class='text-center'>Added Recipes:</h2>
+            {% for recipe in recipes %}
+                <div class="items-container">
+                    <div class="item">
+                        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+                        <h5 class="text-center">{{ recipe.title }}</h5>
+                        <img class="detail-img" src="{{ recipe.image.url }}" alt="recipe-image">
+                        <div class="recipe-info">
+                            {{ recipe.description }}
+                        </div>
+                        <div class="buttons-container">
+                            <a class="button detail" href="{% url "details recipe" recipe.id %}">Details</a>
+                            {% if own_profile  or admin %}
+                                <a class="button edit" href="{% url "edit recipe" recipe.id %}">Edit</a>
+                                <a class="button delete" href="{% url "delete recipe" recipe.id %}">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         {% else %}
-            <h2>This is {{ profile_user.username }} profile</h2>
-        {% endif %}
-        {% if object.profile_picture %}
-            <img class="rounded-circle mb-3" src="{{ object.profile_picture.url }}" alt="Generic placeholder image"
-                 width="150"
-                 height="150">
-        {% else %}
-            <img class="rounded-circle mb-3" src="https://afribary.com/authors/anonymous-user/photo"
-                 alt="Generic placeholder image" width="140"
-                 height="140">
-        {% endif %}
-        {% if own_profile  or admin %}
-            <div class="w-25 m-auto">
-                <form action="{% url 'current user profile' %}" method="post" enctype="multipart/form-data">
-                    {{ form }}
-                    {% csrf_token %}
-                    <input type="submit" value="Upload">
-                </form>
+            <div class="text-center">
+                <h2>You have no recipes</h2>
+                <a href="{% url 'create recipe' %}" class="btn btn-success">Add Recipe</a>
             </div>
         {% endif %}
     </div>
-    <hr>
-    {% if recipes %}
-        <div class="container">
-            <h2 class='text-center'>Added Recipes:</h2>
-                {% for recipe in recipes %}
-                    <div class="items-container">
-                        <div class="item">
-                            <h5 class="text-center">{{ recipe.title }}</h5>
-                            <img class="detail-img" src="{{ recipe.image.url }}" alt="recipe-image">
-                            <div class="recipe-info">
-                                {{ recipe.description }}
-                            </div>
-                            <div class="buttons-container">
-                                <a class="button detail" href="{% url "details recipe" recipe.id %}">Details</a>
-                                {% if own_profile  or admin %}
-                                    <a class="button edit" href="{% url "edit recipe" recipe.id %}">Edit</a>
-                                    <a class="button delete" href="{% url "delete recipe" recipe.id %}">Delete</a>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                {% endfor %}
-    {% else %}
-        <div class="text-center">
-            <h2>You have no recipes</h2>
-            <a href="{% url 'create recipe' %}" class="btn btn-success">Add Recipe</a>
-        </div>
-    {% endif %}
 {% endblock %}

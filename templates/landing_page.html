@@ -6,6 +6,7 @@
     <h1> Welcome to Family CookBook</h1>
     <h2>Share & Comment your favorite family dishes!</h2>
     <p></p>
+    <div style="text-align: center">
     {% if not user.is_authenticated %}
     <h2>Do you have an account? </h2>
     <a href={% url "signin user" %}>
@@ -15,7 +16,6 @@
     <button class="btn btn-primary" type="submit">Sign Up</button></a>
     <p> if you are new to our website </p>
     {% endif %}
-    <div style="text-align: center">
       <img src="/static/images/family.jpg" width="500" height="500" alt="family">
     </div>
 {% endblock %}
